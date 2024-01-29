@@ -1,0 +1,38 @@
+# withdraw, deposit, where the attributes are name, cpf, and balance, and the methods will be to add and withdraw balance
+
+class BankAccount:
+    def __init__(self, balance, cpf):
+        self._balance = balance
+        self._cpf = cpf  
+
+    def deposit(self, value, entered_cpf):
+        if self._verify_cpf(entered_cpf):
+            if value > 0:
+                self._balance += value
+                return f'Deposit of {value} made. New balance: {self._balance}'
+            else:
+                return 'Invalid deposit amount.'
+        else:
+            return 'Invalid CPF. Unauthorized operation.'
+
+    def withdraw(self, value, entered_cpf):
+        if self._verify_cpf(entered_cpf):
+            if value > 0 and value <= self._balance:
+                self._balance -= value
+                return f'Withdrawal of {value} made! Your new balance: {self._balance}'
+            else:
+                return 'Invalid withdrawal amount.'
+        else:
+            return 'Invalid CPF. Unauthorized operation.'
+
+    def _verify_cpf(self, entered_cpf):  
+        return entered_cpf == self._cpf
+
+    def _verify_balance(self):  
+        return f'Current balance: {self._balance}'
+
+ 
+account1 = BankAccount(1000, "123.456.789-00")
+
+account1.deposit(100, "123.456.789-00")
+account1.withdraw(100, "123.456.789-00")
